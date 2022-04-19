@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const startBtn = document.querySelector(".start");
 
   const width = 10;
-  let currentIndex = 0; // so first div in our grid
-  let appleIndex = 0; // so first div in our grid
+  let currentIndex = 0; //so first div in our grid
+  let appleIndex = 0; //so first div in our grid
   let currentSnake = [2, 1, 0];
   let direction = 1;
   let score = 0;
@@ -30,12 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //function that deals with ALL the ove outcomes of the Snake
-
   function moveOutcomes() {
     //deals with snake hitting border and snake hitting self
     if (
       (currentSnake[0] + width >= width * width && direction === width) || //if snake hits bottom
-      ((currentSnake[0] % width) - 1 && direction === 1) || //if snake hits right wall
+      (currentSnake[0] % width === width - 1 && direction === 1) || //if snake hits right wall
       (currentSnake[0] % width === 0 && direction === -1) || //if snake hits left wall
       (currentSnake[0] - width < 0 && direction === -width) || //if snake hits the top
       squares[currentSnake[0] + direction].classList.contains("snake") //if snake goes into itself
@@ -43,8 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return clearInterval(interval); //this will clear the interval if any of the above happen
     }
 
-    const tail = currentSnake.pop(); // removes last item of the array and show it
-    squares[tail].classList.remove("snake"); // removes class of snake from the TAIL
+    const tail = currentSnake.pop(); //removes last item of the array and shows it
+    squares[tail].classList.remove("snake"); //removes class of snake from the TAIL
     currentSnake.unshift(currentSnake[0] + direction); //gives direction to the head of the array
 
     //deals with snake getting apple
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       score++;
       scoreDisplay.textContent = score;
       clearInterval(interval);
-      intervalTime = interval * speed;
+      intervalTime = intervalTime * speed;
       interval = setInterval(moveOutcomes, intervalTime);
     }
     squares[currentSnake[0]].classList.add("snake");
@@ -66,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function randomApple() {
     do {
       appleIndex = Math.floor(Math.random() * squares.length);
-    } while (squares[appleIndex].classList.contains("snake")); //making sure apple don't appear on the snake
+    } while (squares[appleIndex].classList.contains("snake")); //making sure apples don't appear on the snake
     squares[appleIndex].classList.add("apple");
   }
 
@@ -77,11 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.keyCode === 39) {
       direction = 1; //if we press the right arrow on our keyboard, the snake will go right one
     } else if (e.keyCode === 38) {
-      direction = -width; //if we press the up arrow, the snake will go back ten divs, appear to go up
+      direction = -width; // if we press the up arrow, the snake will go back ten divs, appearing to go up
     } else if (e.keyCode === 37) {
-      direction = -1; //if we press left, the snake will go left one div
+      direction = -1; // if we press left, the snake will go left one div
     } else if (e.keyCode === 40) {
-      direction = +width; //if we press down, the snake head will instantly apper in the div ten divs from where you are now
+      direction = +width; //if we press down, the snake head will instantly appear in the div ten divs from where you are now
     }
   }
 
